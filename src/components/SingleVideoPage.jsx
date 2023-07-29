@@ -8,10 +8,8 @@ import Col from "react-bootstrap/Col";
 const SingleVideoPage = () => {
   const { id } = useParams();
   const Id = parseInt(id, 10);
-  console.log(id);
 
   const FindVideos = videos.find((video) => video._id === Id);
-  console.log(FindVideos);
 
   return (
     <div>
