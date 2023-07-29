@@ -10,7 +10,7 @@ import {
 const Sidebar = () => {
 
   return (
-    <div className="sidebar">
+    <div className="container" >
       <Nav defaultActiveKey="/home" className="flex-column">
         <Nav.Link href="/">
           <AiOutlineHome className="nav-icon" color="blue" />

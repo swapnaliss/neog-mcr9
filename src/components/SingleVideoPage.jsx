@@ -4,7 +4,11 @@ import { videos } from "./VideosData";
 import MoreVideos from "./MoreVideos";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
+import {
+  GiNotebook
+} from "react-icons/gi";
+import {MdWatchLater} from "react-icons/md";
+import {AiFillPlayCircle} from "react-icons/ai";
 const SingleVideoPage = () => {
   const { id } = useParams();
   const Id = parseInt(id, 10);
@@ -25,10 +29,17 @@ const SingleVideoPage = () => {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
+            <div>
+            <h5>{FindVideos.title}</h5>
+            <button><GiNotebook className="nav-icon" color="blue" /></button>
+            <button><MdWatchLater className="nav-icon" color="blue" /></button>
+            <button>< AiFillPlayCircle className="nav-icon" color="blue"/></button>
+            </div>
           </div>
         </Col>
         <Col sm={4}>
-          <MoreVideos category={FindVideos.category} />
+          <p>More Videos :</p>
+          <MoreVideos category={FindVideos.category}  />
         </Col>
       </Row>
     </div>

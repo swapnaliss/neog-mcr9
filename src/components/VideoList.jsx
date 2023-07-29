@@ -16,15 +16,10 @@ const VideoList = () => {
     <div>
       <div>
         <Container>
-          <h3>Categories</h3>
-          <Row className="justify-content-center">
+            <Row className="justify-content-center">
             {videosData.map((videos) => (
               <Col
                 key={videos._id}
-                xs={12}
-                sm={6}
-                md={4}
-                lg={3}
                 className="mb-4"
               >
                 <Card
@@ -32,7 +27,7 @@ const VideoList = () => {
                   onClick={() => navigate(`/SingleVideoPage/${videos._id}`)}
                 >
                   <Card.Img variant="top" src={videos.thumbnail} />
-                  <p>{videos.category}</p>
+                  <p>{videos.title}</p>
                 </Card>
               </Col>
             ))}

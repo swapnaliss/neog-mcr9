@@ -36,3 +36,32 @@
     transform: rotate(360deg);
   }
 }
+
+.container{
+  margin-top: 3rem;
+}
+
+.app-container {
+  height: 100vh; 
+}
+
+.sidebar-col {
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+.video-list-col {
+  padding: 20px;
+}
+
+/* Responsive styles */
+@media (max-width: 767px) {
+  .sidebar-col {
+    padding: 10px;
+    min-height: 100px; 
+  }
+
+  .video-list-col {
+    padding: 10px;
+  }
+}
