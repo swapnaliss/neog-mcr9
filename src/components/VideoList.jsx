@@ -29,7 +29,7 @@ const VideoList = () => {
               >
                 <Card
                   className="h-100"
-                  onClick={() => navigate(`/videoList/${category.category}`)}
+                  onClick={() => navigate(`/SingleVideoPage/${videos._id}`)}
                 >
                   <Card.Img variant="top" src={videos.thumbnail} />
                   <p>{videos.category}</p>
