@@ -11,15 +11,28 @@ const SingleVideoPage = () => {
   const [currentVideo, setCurrentVideo] = useState(null);
   const [watchLaterList, setWatchLaterList] = useState([]);
   const [isAlreadyInWatchList, setisAlreadyInWatchList] = useState(false);
+  const [playlists, setPlaylists] = useState([]);
+
   const { id } = useParams();
   const Id = parseInt(id, 10);
 
-  const FindVideos = videos.find((video) => video._id === Id);
+  // const FindVideos = videos.find((video) => video._id === Id);
 
   useEffect(() => {
     const storedWatchLaterList = localStorage.getItem("watchLaterList");
     if (storedWatchLaterList) {
       setWatchLaterList(JSON.parse(storedWatchLaterList));
+    }
+
+    const storedPlaylists = localStorage.getItem("playlists");
+    if (storedPlaylists) {
+      setPlaylists(JSON.parse(storedPlaylists));
+    }
+
+    // Find the current video
+    const findVideo = videos.find((video) => video._id === Id);
+    if (findVideo) {
+      setCurrentVideo(findVideo);
     }
   }, [Id]);
 
@@ -27,10 +40,20 @@ const SingleVideoPage = () => {
     (FindVideos) => {
       localStorage.setItem(
         "watchLaterList",
-        JSON.stringify([...watchLaterList, FindVideos])
+        JSON.stringify([...watchLaterList, currentVideo])
       );
     },
-    [watchLaterList, FindVideos, Id]
+    [watchLaterList, currentVideo, Id]
+  );
+
+  const handleAddToPlaylist = useCallback(
+    () => {
+      localStorage.setItem(
+        "playlists",
+        JSON.stringify([...playlists, currentVideo])
+      );
+    },
+    [watchLaterList, currentVideo, Id]
   );
 
   return (
@@ -39,26 +62,26 @@ const SingleVideoPage = () => {
         <Col sm={8}>
           <div>
             <iframe
-              title={FindVideos.title}
+              title={currentVideo?.title}
               width="560"
               height="315"
-              src={FindVideos.src}
+              src={currentVideo?.src}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
             <div>
-              <h5>{FindVideos.title}</h5>
+              <h5>{currentVideo?.title}</h5>
               <button>
                 <GiNotebook className="nav-icon" color="blue" />
               </button>
               <button
                 onClick={() =>
-                  handleAddToWatchLater(FindVideos, isAlreadyInWatchList)
+                  handleAddToWatchLater(currentVideo, isAlreadyInWatchList)
                 }
               >
                 <MdWatchLater className="nav-icon" color="blue" />
               </button>
-              <button>
+              <button  onClick={() => handleAddToPlaylist("Playlist 1")}>
                 <AiFillPlayCircle className="nav-icon" color="blue" />
               </button>
             </div>
@@ -66,7 +89,7 @@ const SingleVideoPage = () => {
         </Col>
         <Col sm={4}>
           <p>More Videos :</p>
-          <MoreVideos category={FindVideos.category} />
+          <MoreVideos category={currentVideo?.category} />
         </Col>
       </Row>
     </div>
