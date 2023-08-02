@@ -14,7 +14,6 @@ import Popover from "react-bootstrap/Popover";
 const SingleVideoPage = () => {
   const [currentVideo, setCurrentVideo] = useState(null);
   const [watchLaterList, setWatchLaterList] = useState([]);
-  const [isAlreadyInWatchList, setisAlreadyInWatchList] = useState(false);
   const [playlists, setPlaylists] = useState([]);
   const [notes, setNotes] = useState("");
 
@@ -59,7 +58,7 @@ const SingleVideoPage = () => {
         JSON.stringify([...watchLaterList, currentVideo])
       );
     },
-    [watchLaterList, currentVideo, Id]
+    [watchLaterList, currentVideo]
   );
 
   const handleAddToPlaylist = useCallback(() => {
@@ -67,7 +66,7 @@ const SingleVideoPage = () => {
       "playlists",
       JSON.stringify([...playlists, currentVideo])
     );
-  }, [watchLaterList, currentVideo, Id]);
+  }, [currentVideo, playlists]);
 
   const handleAddNote = useCallback((event) => {
     localStorage.setItem(
@@ -106,7 +105,7 @@ const SingleVideoPage = () => {
 
               <button
                 onClick={() =>
-                  handleAddToWatchLater(currentVideo, isAlreadyInWatchList)
+                  handleAddToWatchLater(currentVideo)
                 }
               >
                 <MdWatchLater className="nav-icon" color="blue" />
